@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const envelope = document.getElementById("envelope");
     const letter = document.getElementById("letter");
-    envelope.addEventListener("click", (e) => {
+
+    envelope.addEventListener("click", () => {
         if (!envelope.classList.contains("open")) {
             envelope.classList.add("open");
         }
     });
+
     letter.addEventListener("click", (e) => {
         e.stopPropagation(); 
         
