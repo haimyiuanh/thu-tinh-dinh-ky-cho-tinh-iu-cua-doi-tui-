@@ -1,6 +1,7 @@
 :root {
-    --env-color: #ffb6c1; /* Màu hồng bì thư */
-    --env-dark: #ff99aa;  /* Màu nắp và viền */
+    --env-color: #ffb6c1;  
+    --env-dark: #ff99aa;   
+    --env-light: #ffc0cb;  
     --letter-bg: #ffffff;
 }
 
@@ -20,13 +21,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Khung chứa bì thư - Chuẩn responsive */
 .envelope-wrapper {
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: 360px; 
+    height: 240px; 
     cursor: pointer;
-    perspective: 1000px; /* Tạo không gian 3D cho hiệu ứng */
+    perspective: 1000px;
 }
 
 .envelope {
@@ -34,57 +34,80 @@ body {
     width: 100%;
     height: 100%;
     background-color: var(--env-color);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border-radius: 0 0 8px 8px;
-    transition: transform 0.5s ease;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+    border-radius: 0 0 12px 12px;
 }
 
-/* Nắp bì thư - **SỬA LẠI ĐỂ CHE KÍN** */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: 330px;
+    height: 210px;
+    background-color: var(--letter-bg);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    z-index: 2; 
+    transition: transform 0.6s ease-in-out, z-index 0.1s ease 0.3s;
+    overflow: hidden;
+}
+
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 120px solid transparent;
+    border-bottom: 120px solid transparent;
+    border-left: 180px solid var(--env-light);
+    z-index: 3;
+    border-radius: 0 0 0 12px;
+}
+.envelope::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 120px solid transparent;
+    border-bottom: 120px solid transparent;
+    border-right: 180px solid var(--env-light);
+    z-index: 3;
+    border-radius: 0 0 12px 0;
+}
+
+.front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-bottom: 130px solid var(--env-color);
+    z-index: 4;
+    border-radius: 0 0 12px 12px;
+}
+
 .flap {
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
-    border-top: 130px solid var(--env-dark); /* Tăng chiều cao nắp để che kín */
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-top: 135px solid var(--env-dark);
     transform-origin: top;
-    transition: transform 0.4s ease 0.2s, z-index 0.1s ease 0.2s;
-    z-index: 5; /* Ban đầu nắp nằm trên cùng để che */
+    transition: transform 0.4s ease 0.1s, z-index 0.1s ease 0.1s;
+    z-index: 5; 
 }
 
-/* Mặt trước bì thư - **GIỮ NGUYÊN** */
-.front {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 160px solid var(--env-color);
-    border-right: 160px solid var(--env-color);
-    border-bottom: 115px solid var(--env-dark); /* Phần đáy túi thư */
-    bottom: 0;
-    left: 0;
-    z-index: 4; /* Nằm dưới nắp một chút nhưng trên thư */
-    border-radius: 0 0 8px 8px;
-}
 
-/* Lá thư màu trắng nằm ẩn bên trong */
-.letter {
-    position: absolute;
-    top: 15px; /* Giấu sâu hơn */
-    left: 10px;
-    width: 300px;
-    height: 190px;
-    background-color: var(--letter-bg);
-    border-radius: 4px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1; /* Giấu sau tất cả */
-    transition: transform 0.6s ease-in-out, z-index 0.1s ease 0.3s;
-    overflow: hidden;
-}
-
-/* Định dạng nội dung lá thư */
 .letter-pages {
     position: relative;
     width: 100%;
@@ -104,36 +127,29 @@ body {
     justify-content: space-between;
 }
 
-.page h3 { font-size: 16px; color: #d14949; margin-bottom: 8px; }
-.page p { font-size: 13px; line-height: 1.5; color: #444; }
+.page h3 { font-size: 18px; color: #d14949; margin-bottom: 8px; }
+.page p { font-size: 14px; line-height: 1.6; color: #444; }
 .page .signature { text-align: right; font-style: italic; margin-top: 5px; }
 
-/* **SỬA LẠI ĐỂ HIỆN RÕ CHỮ** */
 .page-number {
-    font-size: 12px; /* Tăng chữ to hơn một chút */
-    color: #999;
+    font-size: 12px;
+    color: #aeaeae;
     text-align: center;
-    margin-top: 10px; /* Tạo khoảng cách với phần nội dung phía trên */
+    padding-top: 5px;
+    border-top: 1px dashed #eee; 
 }
 
-/* Hiệu ứng lật trang 2 */
 .page-2 { transform: rotateY(180deg); }
 
-/* ================= TRẠNG THÁI ACTIVE (ANIMATION) ================= */
-
-/* Bước 1: Bấm vào bì thư -> Mở nắp */
 .envelope.open .flap {
     transform: rotateX(180deg);
-    z-index: 1; /* Khi mở, nắp chui xuống dưới thư */
-    transition: transform 0.4s ease, z-index 0.1s ease 0.1s;
+    z-index: 1; 
+    transition: transform 0.4s ease, z-index 0.1s ease;
 }
 
-/* Bước 2: Bấm vào lá thư -> Rút lên */
 .envelope.letter-out .letter {
-    transform: translateY(-135px); /* Trượt lên cao hơn */
-    z-index: 6; /* Nằm trên tất cả */
+    transform: translateY(-160px);
+    z-index: 10; 
 }
-
-/* Bước 3: Lật trang */
 .envelope.page-flipped .page-1 { transform: rotateY(-180deg); }
 .envelope.page-flipped .page-2 { transform: rotateY(0deg); }
