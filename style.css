@@ -1,7 +1,7 @@
 :root {
-    --env-color: #ffb6c1;  
-    --env-dark: #ff99aa;   
-    --env-light: #ffc0cb;  
+    --env-color: #ffb6c1;  /* Hồng bì thư chính */
+    --env-dark: #ff99aa;   /* Hồng đậm làm nắp & viền tạo khối */
+    --env-light: #ffc0cb;  /* Hồng sáng cho 2 cánh bên */
     --letter-bg: #ffffff;
 }
 
@@ -21,10 +21,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* 1. TĂNG KÍCH THƯỚC BÌ THƯ TO VÀ RÕ RÀNG HƠN */
 .envelope-wrapper {
     position: relative;
-    width: 360px; 
-    height: 240px; 
+    width: 360px; /* Tăng từ 320px lên 360px */
+    height: 240px; /* Tăng từ 220px lên 240px */
     cursor: pointer;
     perspective: 1000px;
 }
@@ -38,6 +39,11 @@ body {
     border-radius: 0 0 12px 12px;
 }
 
+/* 2. SỬA THỨ TỰ LỚP (Z-INDEX) & ĐẢM BẢO KÍN ĐÁO */
+
+/* Lớp đáy bì thư (Mặt sau) - z-index: 1 */
+
+/* Lá thư nằm ở giữa - Mặc định giấu kín bên dưới (z-index: 2) */
 .letter {
     position: absolute;
     bottom: 10px;
@@ -48,11 +54,12 @@ body {
     border-radius: 6px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    z-index: 2; 
+    z-index: 2; /* Đứng sau nắp, cánh và mặt trước */
     transition: transform 0.6s ease-in-out, z-index 0.1s ease 0.3s;
     overflow: hidden;
 }
 
+/* Tạo 2 cánh tam giác hai bên để bì thư KÍN HOÀN TOÀN (z-index: 3) */
 .envelope::before {
     content: '';
     position: absolute;
@@ -80,6 +87,7 @@ body {
     border-radius: 0 0 12px 0;
 }
 
+/* Mặt trước bì thư (Hình tam giác dưới đáy hất lên - z-index: 4) */
 .front {
     position: absolute;
     bottom: 0;
@@ -93,6 +101,7 @@ body {
     border-radius: 0 0 12px 12px;
 }
 
+/* Nắp bì thư lật xuống che toàn bộ (Mặc định trên cùng - z-index: 5) */
 .flap {
     position: absolute;
     top: 0;
@@ -107,7 +116,7 @@ body {
     z-index: 5; 
 }
 
-
+/* 3. NỘI DUNG LÁ THƯ & FIX KHUẤT CHỮ */
 .letter-pages {
     position: relative;
     width: 100%;
@@ -131,25 +140,32 @@ body {
 .page p { font-size: 14px; line-height: 1.6; color: #444; }
 .page .signature { text-align: right; font-style: italic; margin-top: 5px; }
 
+/* Đẩy chữ số trang xuống sát đáy và tăng khoảng cách */
 .page-number {
     font-size: 12px;
     color: #aeaeae;
     text-align: center;
     padding-top: 5px;
-    border-top: 1px dashed #eee; 
+    border-top: 1px dashed #eee; /* Tạo đường gạch nhẹ phân cách cho đẹp */
 }
 
 .page-2 { transform: rotateY(180deg); }
 
+/* ================= TRẠNG THÁI HIỆU ỨNG (ANIMATION) ================= */
+
+/* Bước 1: Mở nắp -> Nắp lật lên và lùi về sau */
 .envelope.open .flap {
     transform: rotateX(180deg);
     z-index: 1; 
     transition: transform 0.4s ease, z-index 0.1s ease;
 }
 
+/* Bước 2: Rút thư -> Lá thư nhảy lên trên cùng (z-index: 10) và đẩy cao hẳn lên */
 .envelope.letter-out .letter {
-    transform: translateY(-160px);
-    z-index: 10; 
+    transform: translateY(-160px); /* Đẩy cao hẳn lên để không bị khuất chữ */
+    z-index: 10; /* Nhảy lên trên tất cả các lớp mặt trước và cánh */
 }
+
+/* Bước 3: Lật trang */
 .envelope.page-flipped .page-1 { transform: rotateY(-180deg); }
 .envelope.page-flipped .page-2 { transform: rotateY(0deg); }
