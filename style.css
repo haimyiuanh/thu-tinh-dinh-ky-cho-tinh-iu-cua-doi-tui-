@@ -156,7 +156,7 @@ body {
 
 /* Bước 2: Rút thư -> Lá thư bay lên trên cùng đè lên mặt trước (z-index: 10) */
 .envelope.letter-out .letter {
-    transform: translateY(-165px); /* Đẩy cao lên hẳn để thấy rõ chân thư */
+    transform: translateY(-200px); /* Đẩy cao lên hẳn để thấy rõ chân thư */
     z-index: 10; 
 }
 
