@@ -39,7 +39,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-/* Fix: Làm nắp bì thư lớn hơn để che kín */
+/* Nắp bì thư - Cải thiện để che kín */
 .flap {
     position: absolute;
     top: 0;
@@ -48,13 +48,13 @@ body {
     height: 0;
     border-left: 160px solid transparent;
     border-right: 160px solid transparent;
-    border-top: 130px solid var(--env-dark); /* Tăng chiều cao nắp */
+    border-top: 130px solid var(--env-dark); /* Chiều cao nắp được tăng lên */
     transform-origin: top;
     transition: transform 0.4s ease 0.2s, z-index 0.1s ease 0.2s;
-    z-index: 5; /* Ban đầu nắp nằm trên cùng để che */
+    z-index: 5; /* Nắp nằm trên cùng để che kín khi đóng */
 }
 
-/* Mặt trước bì thư - Cải thiện để kín đáo hơn */
+/* Mặt trước bì thư */
 .front {
     position: absolute;
     width: 0;
@@ -68,10 +68,10 @@ body {
     border-radius: 0 0 8px 8px;
 }
 
-/* Lá thư màu trắng nằm ẩn bên trong (Ban đầu kín) */
+/* Lá thư màu trắng nằm ẩn bên trong */
 .letter {
     position: absolute;
-    top: 15px; /* Giấu sâu hơn */
+    top: 15px;
     left: 10px;
     width: 300px;
     height: 190px;
@@ -107,7 +107,14 @@ body {
 .page h3 { font-size: 16px; color: #d14949; margin-bottom: 8px; }
 .page p { font-size: 13px; line-height: 1.5; color: #444; }
 .page .signature { text-align: right; font-style: italic; margin-top: 5px; }
-.page-number { font-size: 10px; color: #999; text-align: center; }
+
+/* Sửa lỗi hiển thị trang số: tăng kích thước và đảm bảo không bị khuất */
+.page-number {
+    font-size: 12px; /* Tăng kích thước chữ một chút */
+    color: #999;
+    text-align: center;
+    margin-top: 10px; /* Tạo khoảng cách với nội dung phía trên */
+}
 
 /* Hiệu ứng lật trang 2 */
 .page-2 { transform: rotateY(180deg); }
